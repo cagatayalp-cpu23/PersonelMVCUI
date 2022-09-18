@@ -1,0 +1,19 @@
+﻿@model List<PersonelMVCUI.Models.EntityFramework.Personel>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Ad</th>
+        <th>Soyad</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var personel in Model)
+    {
+        <tr>
+            <td>@personel.Ad</td>
+            <td>@personel.Soyad</td>
+        </tr>
+    }
+    
+    </tbody>
+</table>

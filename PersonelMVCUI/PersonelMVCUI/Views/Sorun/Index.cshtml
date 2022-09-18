@@ -1,0 +1,70 @@
+﻿@model List<PersonelMVCUI.Models.EntityFramework.Sorun>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ActionLink("Yeni Görev", "Ekle", null, new { @class = "btn btn-success" })
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>TITLE</td>
+            <td>Customer</td>
+            <td>CREATED AT</td>
+            <td>DEADLINE</td>
+            <td>KAÇ GÜN KALDI</td>
+            <td>Status</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>@Ajax.ActionLink(item.TITLE,"SorunEkle","Task",new {id=item.Id},new AjaxOptions{HttpMethod = "GET"})</th>
+                <th>@item.Customers.Ad</th>
+                <th>@item.CREATED_AT.Value.Date.ToString("dd/MM/yyyy")</th>
+                <th>@item.DEADLINE.Value.Date.ToString("dd/MM/yyyy")</th>
+                <th>@(@item.DEADLINE.Value.Date.DayOfYear-DateTime.Now.Date.DayOfYear)</th>
+                <th>@item.Status.Status1</th>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<!--<-->@*script>
+    $(document).ready(function () {
+        $(".sorunclass").on('click',
+            function () {
+                var id = $(this).attr("data-id");
+
+                debugger;
+                if (id != null) {
+                    $.ajax({
+                        type: "GET",
+                        url: "///" + id,
+                        success: function () {
+                            if (btn.data('status') === true) {
+                                btn.data('status', false);
+                                btn.attr('class', "btn btn-danger btnsuccess");
+                                btn.text("YAPILMADI");
+
+                            }
+                            else {
+                                btn.data('status', true);
+                                btn.attr('class', "btn btn-success btnsuccess");
+                                btn.text("YAPILDI");
+                            }
+                            var btns = $('.btnsuccess');
+                            var completedJobs = 0;
+                            for (var z = 0; z < btns.length; z++) {
+                                if ($(btns[z]).data('status') === true)
+                                {
+                                    completedJobs++;
+                                }
+                            }
+                            $('#completionPercentage').text('%' + parseFloat(100 * (completedJobs / btns.length)).toFixed(0) + ' tamamlandı');
+                        }
+                    });
+                }
+            });
+    })</script>*@

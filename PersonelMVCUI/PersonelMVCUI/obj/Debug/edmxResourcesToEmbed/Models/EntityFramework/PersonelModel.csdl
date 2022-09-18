@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PersoneldbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PersoneldbEntities6" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="PersoneldbModel.Customers" />
+    <EntitySet Name="Departman" EntityType="PersoneldbModel.Departman" />
+    <EntitySet Name="Kullanici" EntityType="PersoneldbModel.Kullanici" />
+    <EntitySet Name="Personel" EntityType="PersoneldbModel.Personel" />
+    <EntitySet Name="Select" EntityType="PersoneldbModel.Select" />
+    <EntitySet Name="Status" EntityType="PersoneldbModel.Status" />
+    <AssociationSet Name="FK_Customers_Departman" Association="PersoneldbModel.FK_Customers_Departman">
+      <End Role="Departman" EntitySet="Departman" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personel_Departman1" Association="PersoneldbModel.FK_Personel_Departman1">
+      <End Role="Departman" EntitySet="Departman" />
+      <End Role="Personel" EntitySet="Personel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Select_Personel" Association="PersoneldbModel.FK_Select_Personel">
+      <End Role="Personel" EntitySet="Personel" />
+      <End Role="Select" EntitySet="Select" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Select_Status" Association="PersoneldbModel.FK_Select_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Select" EntitySet="Select" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="PersoneldbModel.sysdiagrams" />
+    <EntitySet Name="Sorunlar" EntityType="PersoneldbModel.Sorunlar" />
+    <EntitySet Name="Tasks" EntityType="PersoneldbModel.Tasks" />
+    <AssociationSet Name="FK_Tasks_Customers" Association="PersoneldbModel.FK_Tasks_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Tasks" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tasks_Personel2" Association="PersoneldbModel.FK_Tasks_Personel2">
+      <End Role="Personel" EntitySet="Personel" />
+      <End Role="Tasks" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sorunlar_Tasks" Association="PersoneldbModel.FK_Sorunlar_Tasks">
+      <End Role="Tasks" EntitySet="Tasks" />
+      <End Role="Sorunlar" EntitySet="Sorunlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tasks_Status" Association="PersoneldbModel.FK_Tasks_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Tasks" EntitySet="Tasks" />
+    </AssociationSet>
+    <EntitySet Name="Sorun" EntityType="PersoneldbModel.Sorun" />
+    <AssociationSet Name="FK_Sorun_Customers" Association="PersoneldbModel.FK_Sorun_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Sorun" EntitySet="Sorun" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sorun_Status" Association="PersoneldbModel.FK_Sorun_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Sorun" EntitySet="Sorun" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Soyad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SorunId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Departman" Relationship="PersoneldbModel.FK_Customers_Departman" FromRole="Customers" ToRole="Departman" />
+    <NavigationProperty Name="Tasks" Relationship="PersoneldbModel.FK_Tasks_Customers" FromRole="Customers" ToRole="Tasks" />
+    <NavigationProperty Name="Sorun" Relationship="PersoneldbModel.FK_Sorun_Customers" FromRole="Customers" ToRole="Sorun" />
+  </EntityType>
+  <EntityType Name="Departman">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customers" Relationship="PersoneldbModel.FK_Customers_Departman" FromRole="Departman" ToRole="Customers" />
+    <NavigationProperty Name="Personel" Relationship="PersoneldbModel.FK_Personel_Departman1" FromRole="Departman" ToRole="Personel" />
+  </EntityType>
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Personel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmanId" Type="Int32" />
+    <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Yas" Type="Byte" />
+    <Property Name="Maas" Type="Int16" />
+    <Property Name="DogumTarihi" Type="DateTime" Precision="0" />
+    <Property Name="Cinsiyet" Type="Boolean" Nullable="false" />
+    <Property Name="Evlimi" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Departman" Relationship="PersoneldbModel.FK_Personel_Departman1" FromRole="Personel" ToRole="Departman" />
+    <NavigationProperty Name="Select" Relationship="PersoneldbModel.FK_Select_Personel" FromRole="Personel" ToRole="Select" />
+    <NavigationProperty Name="Tasks" Relationship="PersoneldbModel.FK_Tasks_Personel2" FromRole="Personel" ToRole="Tasks" />
+  </EntityType>
+  <EntityType Name="Select">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PersonelId" Type="Int32" />
+    <Property Name="StatusId" Type="Int32" />
+    <NavigationProperty Name="Personel" Relationship="PersoneldbModel.FK_Select_Personel" FromRole="Select" ToRole="Personel" />
+    <NavigationProperty Name="Status" Relationship="PersoneldbModel.FK_Select_Status" FromRole="Select" ToRole="Status" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Select" Relationship="PersoneldbModel.FK_Select_Status" FromRole="Status" ToRole="Select" />
+    <NavigationProperty Name="Tasks" Relationship="PersoneldbModel.FK_Tasks_Status" FromRole="Status" ToRole="Tasks" />
+    <NavigationProperty Name="Sorun" Relationship="PersoneldbModel.FK_Sorun_Status" FromRole="Status" ToRole="Sorun" />
+  </EntityType>
+  <Association Name="FK_Customers_Departman">
+    <End Type="PersoneldbModel.Departman" Role="Departman" Multiplicity="1" />
+    <End Type="PersoneldbModel.Customers" Role="Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departman">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="SorunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personel_Departman1">
+    <End Type="PersoneldbModel.Departman" Role="Departman" Multiplicity="0..1" />
+    <End Type="PersoneldbModel.Personel" Role="Personel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departman">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Personel">
+        <PropertyRef Name="DepartmanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Select_Personel">
+    <End Type="PersoneldbModel.Personel" Role="Personel" Multiplicity="0..1" />
+    <End Type="PersoneldbModel.Select" Role="Select" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Select">
+        <PropertyRef Name="PersonelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Select_Status">
+    <End Type="PersoneldbModel.Status" Role="Status" Multiplicity="0..1" />
+    <End Type="PersoneldbModel.Select" Role="Select" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Select">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Sorunlar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sorun" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsSelected" Type="Boolean" />
+    <Property Name="TaskId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tasks" Relationship="PersoneldbModel.FK_Sorunlar_Tasks" FromRole="Sorunlar" ToRole="Tasks" />
+  </EntityType>
+  <EntityType Name="Tasks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TITLE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="CREATED_AT" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DEADLINE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="StatusId" Type="Int32" />
+    <Property Name="PersonelId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customers" Relationship="PersoneldbModel.FK_Tasks_Customers" FromRole="Tasks" ToRole="Customers" />
+    <NavigationProperty Name="Personel" Relationship="PersoneldbModel.FK_Tasks_Personel2" FromRole="Tasks" ToRole="Personel" />
+    <NavigationProperty Name="Sorunlar" Relationship="PersoneldbModel.FK_Sorunlar_Tasks" FromRole="Tasks" ToRole="Sorunlar" />
+    <NavigationProperty Name="Status" Relationship="PersoneldbModel.FK_Tasks_Status" FromRole="Tasks" ToRole="Status" />
+  </EntityType>
+  <Association Name="FK_Tasks_Customers">
+    <End Type="PersoneldbModel.Customers" Role="Customers" Multiplicity="1" />
+    <End Type="PersoneldbModel.Tasks" Role="Tasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tasks">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tasks_Personel2">
+    <End Type="PersoneldbModel.Personel" Role="Personel" Multiplicity="1" />
+    <End Type="PersoneldbModel.Tasks" Role="Tasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tasks">
+        <PropertyRef Name="PersonelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sorunlar_Tasks">
+    <End Type="PersoneldbModel.Tasks" Role="Tasks" Multiplicity="1" />
+    <End Type="PersoneldbModel.Sorunlar" Role="Sorunlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tasks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sorunlar">
+        <PropertyRef Name="TaskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tasks_Status">
+    <End Type="PersoneldbModel.Status" Role="Status" Multiplicity="0..1" />
+    <End Type="PersoneldbModel.Tasks" Role="Tasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tasks">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Sorun">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TITLE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerId" Type="Int32" />
+    <Property Name="CREATED_AT" Type="DateTime" Precision="3" />
+    <Property Name="DEADLINE" Type="DateTime" Precision="3" />
+    <Property Name="StatusId" Type="Int32" />
+    <NavigationProperty Name="Customers" Relationship="PersoneldbModel.FK_Sorun_Customers" FromRole="Sorun" ToRole="Customers" />
+    <NavigationProperty Name="Status" Relationship="PersoneldbModel.FK_Sorun_Status" FromRole="Sorun" ToRole="Status" />
+  </EntityType>
+  <Association Name="FK_Sorun_Customers">
+    <End Type="PersoneldbModel.Customers" Role="Customers" Multiplicity="0..1" />
+    <End Type="PersoneldbModel.Sorun" Role="Sorun" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sorun">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sorun_Status">
+    <End Type="PersoneldbModel.Status" Role="Status" Multiplicity="0..1" />
+    <End Type="PersoneldbModel.Sorun" Role="Sorun" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sorun">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PersoneldbModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Departman">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Ad" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Table2" Relationship="Self.FK_Table2_Table1" FromRole="Table1" ToRole="Table2" />
+  </EntityType>
+  <EntityType Name="Personel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="DepartmanId" Type="Int32" />
+    <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Yas" Type="Byte" />
+    <Property Name="Maas" Type="Int16" />
+    <Property Name="DogumTarihi" Type="DateTime" Precision="0" />
+    <Property Name="Cinsiyet" Type="Boolean" Nullable="false" />
+    <Property Name="Evlimi" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Table1" Relationship="Self.FK_Table2_Table1" FromRole="Table2" ToRole="Table1" />
+  </EntityType>
+  <Association Name="FK_Table2_Table1">
+    <End Role="Table1" Type="PersoneldbModel1.Departman" Multiplicity="1" />
+    <End Role="Table2" Type="PersoneldbModel1.Personel" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Table1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Table2">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PersoneldbEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Table1" EntityType="PersoneldbModel1.Departman" />
+    <EntitySet Name="Table2" EntityType="PersoneldbModel1.Personel" />
+    <AssociationSet Name="FK_Table2_Table1" Association="Self.FK_Table2_Table1">
+      <End Role="Table1" EntitySet="Table1" />
+      <End Role="Table2" EntitySet="Table2" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

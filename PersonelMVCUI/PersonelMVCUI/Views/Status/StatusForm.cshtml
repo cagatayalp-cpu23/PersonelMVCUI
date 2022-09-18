@@ -1,0 +1,19 @@
+﻿@model PersonelMVCUI.Models.EntityFramework.Status
+@{
+    ViewBag.Title = "StatusForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="mesaj">
+
+</div>
+@using (Ajax.BeginForm("Kaydet", "Status", null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mesaj" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.Status1)
+        @Html.TextBoxFor(x => x.Status1, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(x => x.Id);
+    <button type="submit">Kaydet</button>
+    
+}
+

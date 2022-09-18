@@ -1,0 +1,36 @@
+﻿@using PersonelMVCUI.Models.EntityFramework;
+@model List<Status>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ActionLink("Ekle", "Yeni", null, new { @class = "btn btn-success" })
+@using (Html.BeginForm("Index", "Status", FormMethod.Get))
+{
+    <b>Search By:</b>@Html.RadioButton("searchBy", "Statu") <text>Status</text>
+    @Html.TextBox("search")<input type="submit" value="Search" />
+
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>@Html.ActionLink("Status", "Index", new { sortBy = ViewBag.sortstatusparameter @*,searchBy = Request.QueryString["searchBy"], search = Request["search"]*@ })</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var status in Model)
+        {
+            <tr>
+                <th>@status.Id</th>
+                <th>@status.Status1</th>
+                <th>@Html.ActionLink("Guncelle", "Guncelle", new { id = status.Id }, new { @class = "btn btn-success" })</th>
+                <th>@Html.ActionLink("Sil", "Sil", new { id = status.Id }, new { @class = "btn btn-danger" })</th>
+
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+

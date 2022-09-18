@@ -1,0 +1,39 @@
+﻿
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            @*<a class="navbar-brand" href="#">Personel Yönetim Sistemi Toplam Gider:*@
+             @*@{Html.RenderAction("ToplamMaas", "Personel");}*@ @*</a>*@
+        </div>
+        <ul class="nav navbar-nav">
+
+            <li class="active"><a href="/Departman">Departmanlar</a></li>
+
+
+
+            <li><a href="/Personel">Personeller</a></li>
+
+
+            <li><a href="/Kullanici">Kullanıcılar</a></li>
+
+
+            <li><a href="/Customer">Customers</a></li>
+            <li><a href="/Select">Select</a></li>
+            <li><a href="/Sorunlar">Sorunlar</a></li>
+
+            @if (!User.IsInRole("Customer"))
+            {
+                @*<li>@Html.ActionLink("Tasks","Index",new{id=Model.Ad})</li>*@
+                <li><a href="/Task">Tasks</a></li>
+                <li><a href="/Status">Status</a></li>
+            }
+            <li><a href="/Sorun">Sorun</a></li>
+
+
+
+
+            <li><a href="/Security/LogOut">Çıkış Yap</a></li>
+
+        </ul> 
+    </div>
+</nav>

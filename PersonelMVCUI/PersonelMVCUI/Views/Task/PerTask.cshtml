@@ -1,0 +1,37 @@
+﻿@model List<PersonelMVCUI.Models.EntityFramework.Tasks>
+@{
+    ViewBag.Title = "PerTask";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>STATUS</h1>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Ad</th>
+        <th>Soyad</th>
+        <th>Status</th>
+        <th>TITLE</th>
+        <th>DEADLINE</th>
+        <th>KAÇ GÜN KALDI</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Personel.Ad</td>
+            <td>@item.Personel.Soyad</td>
+            <td>@item.Status.Status1</td>
+            @*<td>@item.TITLE</td>*@
+            <td>@Ajax.ActionLink(item.TITLE, "Sorun", "Sorunlar", new { id = item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "icerik" }, new { @class = "btn btn-primary" })</td>
+            <td>@item.DEADLINE.Date.ToString("d")</td>
+            <td>@(@item.DEADLINE.Date.DayOfYear-DateTime.Now.DayOfYear)</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<div id="icerik"></div>
+
+

@@ -1,0 +1,30 @@
+﻿@model PersonelMVCUI.ViewModels.CustomerFormViewModel
+@{
+    ViewBag.Title = "CustomerForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="mesaj">
+
+</div>
+@*@using (Ajax.BeginForm("Kaydet", "Customer",new AjaxOptions {HttpMethod="POST",UpdateTargetId="mesaj" }))*@
+@using (Ajax.BeginForm("Kaydet", "Customer", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mesaj" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customers.Ad)
+        @Html.TextBoxFor(m => m.Customers.Ad, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customers.Soyad)
+        @Html.TextBoxFor(m => m.Customers.Soyad, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customers.SorunId)
+        @Html.DropDownListFor(m => m.Customers.SorunId, new SelectList(Model.Departmanlar, "Id", "Ad"), new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(m => m.Customers.Id)
+    <button type="submit" class="btn btn-success">Kaydet</button>
+
+
+}
+

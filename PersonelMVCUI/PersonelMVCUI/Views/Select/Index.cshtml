@@ -1,0 +1,26 @@
+﻿@model List<PersonelMVCUI.Models.EntityFramework.Select>  
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Personeller</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Personel.Ad</td>
+            <td>@item.Status.Status1</td>
+        </tr>
+    }
+
+
+
+    </tbody>
+</table>
+

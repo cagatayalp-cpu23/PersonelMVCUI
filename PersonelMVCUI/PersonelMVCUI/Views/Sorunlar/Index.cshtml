@@ -1,0 +1,36 @@
+﻿@model List<PersonelMVCUI.Models.EntityFramework.Sorunlar>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Sorun Detayı</th>
+        <th>YAPILDI MI</th>
+        <th>Sorun</th>
+    </tr>
+    
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Sorun</td>
+            @if (item.IsSelected == true)
+            {
+                <td><a class="btn btn-success">YAPILDI</a></td>
+            }
+            @if (item.IsSelected == false)
+            {
+        <td><a class="btn btn-danger">YAPILMADI</a></td>
+            }
+            <td>@Ajax.ActionLink(@item.Tasks.TITLE, "Sorun", "Sorunlar", new { id = item.Tasks.TITLE }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "sorun" }, new { @class = "btn btn-primary" })</td>
+
+        </tr>
+    }
+    
+    </tbody>
+</table>
+<div id="sorun"></div>
+

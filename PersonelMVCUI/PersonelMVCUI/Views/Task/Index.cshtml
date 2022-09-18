@@ -1,0 +1,110 @@
+﻿@*@model  PersonelMVCUI.ViewModels.TaskFormViewModel*@
+@*@model List<PersonelMVCUI.Models.EntityFramework.Tasks>*@
+@using PersonelMVCUI.Models.EntityFramework
+@model  List<PersonelMVCUI.Models.EntityFramework.Tasks>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //bool,string,long
+}
+@*<a href="/Task/Yeni">Yeni Görev</a>*@
+@Html.ActionLink("Yeni Görev", "Yeni", null, new { @class = "btn btn-success" })
+
+@using (Html.BeginForm("Index", "Task", FormMethod.Get))//tasklist
+{
+    <p>
+        <b>Search By:  </b>@Html.RadioButton("searchBy", "TITL") TITLE
+        @Html.RadioButton("searchBy", "Statu") Status<br />
+        @Html.TextBox("search") <input type="submit" value="Search" />
+    </p>
+}
+@*@using (Html.BeginCollectionItem("Sorunlar"))*@
+@*//{
+    //    <div>@Html.LabelFor(x => x.Count)</div>
+    //}*@
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.ActionLink("TITLE", "Index", new { sortBy = ViewBag.SortTITLEParameter, searchBy = Request.QueryString["searchBy"], search = Request["search"] })</th>
+            <th>CUSTOMER</th>
+            <th>CREATED AT</th>
+            <th>DEADLINE</th>
+            <th>KAÇ GÜN KALDI</th>
+            <th>ASSIGNED</th>
+            <th>@Html.ActionLink("Status", "Index", new { sortBy = ViewBag.SortStatusParameter, searchBy = Request.QueryString["searchBy"], search = Request["search"] })</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+            <th>@Ajax.ActionLink("Güncel Sorunları Gör", "Index", "Sorun",null, new AjaxOptions { UpdateTargetId = "sorun1", HttpMethod = "GET" }, new { @class = "btn btn-primary" })</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@Ajax.ActionLink(task.TITLE, "Sorun", "Sorunlar", new { id = task.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "sorun" }, new { @class = "btn btn-primary" })</td>
+                <td>@task.Customers.Ad</td>
+                <td>@task.CREATED_AT.Date.ToString("dd-MM-yyyy")</td>
+                <td>@task.DEADLINE.Value.Date.ToString("dd-MM-yyyy")</td>
+                <td>@(task.DEADLINE.Value.Date.DayOfYear- DateTime.Now.DayOfYear)</td>
+                <td>@Html.ActionLink(task.Personel.Ad, "PersonelGorev", "Personel", new { id = task.Personel.Ad },@*new { HttpMethod = "GET",UpdateTargetId = "personelgorev"},*@new { @class = "btn btn-primary" })</td>
+
+                @if (task.Status.Status1 == "CLOSED")//danger
+                {
+                    <td>@Html.ActionLink(task.Status.Status1, "PerTask", "Task", new { id = task.Status.Status1 },@*new { HttpMethod = "GET",UpdateTargetId = "personelgorev"},*@new { @class = "btn btn-danger" })</td>
+                }
+                @if (task.Status.Status1 == "OPEN")//success
+                {
+                    <td>@Html.ActionLink(task.Status.Status1, "PerTask", "Task", new { id = task.Status.Status1 },/*new { HttpMethod = "GET",UpdateTargetId = "personelgorev"},*/new { @class = "btn btn-success" })</td>
+                }
+                @if (task.Status.Status1 == "SUCCESS")//info
+                {
+                    <td>@Html.ActionLink(task.Status.Status1, "PerTask", "Task", new { id = task.Status.Status1 },/*new { HttpMethod = "GET",UpdateTargetId = "personelgorev"},*/new { @class = "btn btn-info" })</td>
+                }
+                @if (task.Status.Status1 == "BLOCKED")//warning
+                {
+                    <td>@Html.ActionLink(task.Status.Status1, "PerTask", "Task", new { id = task.Status.Status1 },/*new { HttpMethod = "GET",UpdateTargetId = "personelgorev"},*/new { @class = "btn btn-warning" })</td>
+                }
+                @if (task.Status.Status1 == "IN-PROGRESS")//primary
+                {
+                    <td>@Html.ActionLink(task.Status.Status1, "PerTask", "Task", new { id = task.Status.Status1 }, /*new { HttpMethod = "GET",UpdateTargetId = "personelgorev"},*/new { @class = "btn btn-primary" })</td>
+
+                } @if (task.Status.Status1 == "PENDING")//primary
+                {
+                    <td>@Html.ActionLink(task.Status.Status1, "PerTask", "Task", new { id = task.Status.Status1 }, /*new { HttpMethod = "GET",UpdateTargetId = "personelgorev"},*/new { @class = "btn btn-primary" })</td>
+
+                }
+
+
+                <td>@Html.ActionLink("Güncelle", "Guncelle", new { id = task.Id }, new { @class = "btn btn-success" })</td>
+                <td>@Html.ActionLink("Sil", "Sil", new { id = task.Id }, new { @class = "btn btn-danger" })</td>
+
+
+            </tr>
+
+
+        }
+
+        <!--<tr>-->
+        @*<td> @Html.DropDownListFor(x=>x., new SelectList(Model., "Id", "Ad"))</td>*@
+        <!--</tr>-->
+
+
+
+
+    </tbody>
+
+
+</table>
+@*@Html.BeginCollectionItem("SKERSMSABFDOYLWHAYATIU")
+*@
+<div id="pertask"></div>
+<div id="personelgorev"></div>
+<div id="sorun"></div>
+<div id="sorun1"></div>
+

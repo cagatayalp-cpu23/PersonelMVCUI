@@ -1,0 +1,110 @@
+﻿@model List<PersonelMVCUI.Models.EntityFramework.Sorunlar>
+@{
+
+    var i = 0;
+    var k = 0;
+    var l = 0;
+    var a = 1;
+}
+<table class="table table-bordered" id="tblSorun">
+    <thead>
+
+        @foreach (var sorun in Model)
+        {
+            while (i == 0)
+            {
+                <tr>
+                    <th>@sorun.Tasks.TITLE DETAYLAR</th>
+                    <th>YAPILDI MI</th>
+                </tr>
+                i++;
+            }
+            @*<tr>*@
+                @*<th>@sorun.Tasks.TITLE. DETAYLAR</th>*@
+                @*<th>@Model.Single().Tasks.TITLE  YAPILDI MI</th>*@
+            @*</tr>*@
+        }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.Sorun</td>
+
+                @if (item.IsSelected == true)
+                {
+                    <td>
+                        <a class="btn btn-success btnsuccess" data-id="@item.Id" data-status="true">YAPILDI</a>
+                    </td>
+                    k++;
+                }
+                else
+                {
+                    <td>
+                        <a class="btn btn-danger btnsuccess" data-id="@item.Id" data-status="false">YAPILMADI</a>
+                    </td>
+                }
+                @{
+                    l++;
+                }
+
+
+            </tr>
+        }
+        <tr>
+
+            <th>
+                @{
+                    if (l != 0)
+                    {
+                        a = 100 * k / l;
+                    }
+                }
+                Yüzde Kaçı Bitirildi:
+                <a class="btn btn-primary" id="completionPercentage"> %@a yapıldı</a>
+            </th>
+        </tr>
+
+
+
+    </tbody>
+
+</table>
+<script>
+    $(document).ready(function () {
+        $(".btnsuccess").on('click',
+            function () {
+
+                var id = $(this).attr("data-id");
+                var btn = $(this);
+                if (id != null) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/Sorunlar/Degistir/" + id,
+                        success: function () {
+                            if (btn.data('status') === true) {
+                                btn.data('status', false);
+                                btn.attr('class', "btn btn-danger btnsuccess");
+                                btn.text("YAPILMADI");
+
+                            }
+                            else {
+                                btn.data('status', true);
+                                btn.attr('class', "btn btn-success btnsuccess");
+                                btn.text("YAPILDI");
+                            }
+                            var btns = $('.btnsuccess');
+                            var completedJobs = 0;
+                            for (var z = 0; z < btns.length; z++) {
+                                if ($(btns[z]).data('status') === true)
+                                {
+                                    completedJobs++;
+                                }
+                            }
+                            $('#completionPercentage').text('%' + parseFloat(100 * (completedJobs / btns.length)).toFixed(0) + ' tamamlandı');
+                        }
+                    });
+                }
+            });
+    })</script>

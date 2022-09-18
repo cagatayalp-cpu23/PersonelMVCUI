@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ae9b3237333c4e20aae09ac607c19284" Name="Diagram1" ZoomLevel="96">
+        <EntityTypeShape EntityType="PersoneldbModel.Customers" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="PersoneldbModel.Departman" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="PersoneldbModel.Kullanici" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PersoneldbModel.Personel" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="PersoneldbModel.Select" Width="1.5" PointX="5.25" PointY="7.125" />
+        <EntityTypeShape EntityType="PersoneldbModel.Status" Width="1.5" PointX="3" PointY="9.75" />
+        <AssociationConnector Association="PersoneldbModel.FK_Customers_Departman" />
+        <AssociationConnector Association="PersoneldbModel.FK_Personel_Departman1" />
+        <AssociationConnector Association="PersoneldbModel.FK_Select_Personel" />
+        <AssociationConnector Association="PersoneldbModel.FK_Select_Status" />
+        <EntityTypeShape EntityType="PersoneldbModel.sysdiagrams" Width="1.5" PointX="11.375" PointY="6.75" />
+        <EntityTypeShape EntityType="PersoneldbModel.Sorunlar" Width="1.5" PointX="7.5" PointY="3.5" />
+        <EntityTypeShape EntityType="PersoneldbModel.Tasks" Width="1.5" PointX="5.25" PointY="3" />
+        <AssociationConnector Association="PersoneldbModel.FK_Tasks_Customers" />
+        <AssociationConnector Association="PersoneldbModel.FK_Tasks_Personel2" />
+        <AssociationConnector Association="PersoneldbModel.FK_Sorunlar_Tasks" />
+        <AssociationConnector Association="PersoneldbModel.FK_Tasks_Status" />
+        <EntityTypeShape EntityType="PersoneldbModel.Sorun" Width="1.5" PointX="8.25" PointY="6.375" />
+        <AssociationConnector Association="PersoneldbModel.FK_Sorun_Customers" />
+        <AssociationConnector Association="PersoneldbModel.FK_Sorun_Status" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

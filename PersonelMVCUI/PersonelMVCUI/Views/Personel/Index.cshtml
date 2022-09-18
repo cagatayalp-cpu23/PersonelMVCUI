@@ -1,0 +1,81 @@
+﻿@model List<PersonelMVCUI.Models.EntityFramework.Personel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ActionLink("Yeni personel", "Yeni", null, new { @class = "btn btn-success" })
+@using (Html.BeginForm("Index", "Personel", FormMethod.Get))
+{
+    @Html.RadioButton("searchBy", "Ad") <text>Ad</text>
+    @Html.RadioButton("searchBy", "Departman") <text>Departman</text>
+    @Html.TextBox("search") <input type="submit" value="search" />
+}
+<h2>Personel Listesi</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.ActionLink("Ad","Index",new {orderBy=ViewBag.orderby })</th>
+            <th>Soyad</th>
+            <th>Departman</th>
+            <th>Yas</th>
+            <th>Maas</th>
+            <th>DogumTarihi</th>
+            <th>Cinsiyet</th>
+            <th>Evlimi</th>
+            <th>Guncelle</th>
+            <th>Sil</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var personel in Model)
+        {
+
+        <tr>
+            <td>@personel.Ad  </td>
+            <td>@personel.Soyad </td>
+            <td>@personel.Departman.Ad </td>
+
+
+            <td>
+                @if (@personel.DogumTarihi != null)
+                {
+                    @(DateTime.Now.Year - @personel.DogumTarihi.Value.Year)
+                    @:</td>
+
+
+                    <td> @personel.Maas</td>
+                    @:<td> @personel.DogumTarihi.Value.ToString("dd-MM-yyyy")
+                }
+            </td>
+            @if (personel.Cinsiyet == true)
+            {
+                <td> Erkek</td>
+            }
+            else
+            {
+                <td> Kadın </td>
+            }
+            @if (personel.Evlimi == true)
+            {
+                <td> Evli</td>
+            }
+            else
+            {
+                <td> Bekar</td>
+            }
+
+            <td>@Html.ActionLink("Güncelle", "Guncelle", new { id = personel.Id }, new { @class = "btn btn-success" })</td>
+            <td>@Html.ActionLink("Sil", "Sil", new { id = personel.Id }, new { @class = "btn btn-danger" })</td>
+
+
+
+
+
+
+        </tr>
+        }
+
+    </tbody>
+
+</table>

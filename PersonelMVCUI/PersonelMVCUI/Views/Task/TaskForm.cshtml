@@ -1,0 +1,59 @@
+﻿@model PersonelMVCUI.ViewModels.TaskFormViewModel
+@*@model PersonelMVCUI.Models.EntityFramework.Tasks*@
+@*@using PersonelMVCUI.Models.EntityFramework;*@
+@{
+    ViewBag.Title = "Yeni";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var personels = Model.Personeller.Select(x => new SelectListItem()
+    {
+        Text = x.Ad,
+        Value = x.Id.ToString(),
+        Selected = x.Id==Model.Tasks.PersonelId
+    });
+    var customers = Model.Customers.Select(x => new SelectListItem()
+    {
+        Text = x.Ad,
+        Value = x.Id.ToString(),
+        Selected = x.Id == Model.Tasks.CustomerId
+    });
+
+}
+<div id="mesaj">
+
+</div>
+@using (Ajax.BeginForm("Kaydet", "Task", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mesaj" }))
+{
+
+    <div class="form-group">
+        @Html.LabelFor(x => x)
+        @Html.TextBoxFor(x => x.Tasks.TITLE, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Tasks.CustomerId)
+        @Html.DropDownListFor(x => x.Tasks.CustomerId, customers.OrderBy(x => x.Value), new { @class = "form-control" })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Tasks.CREATED_AT)
+        @Html.TextBoxFor(x => x.Tasks.CREATED_AT, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+
+    </div>
+    <div class="form-group">
+
+        @Html.LabelFor(x => x.Tasks.DEADLINE)
+        @Html.TextBoxFor(x => x.Tasks.DEADLINE, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+    </div>
+    <div class="form-group">
+
+        @Html.LabelFor(x => x.Tasks.Personel.Ad)
+        @Html.DropDownListFor(x => x.Tasks.PersonelId, personels.OrderBy(x => x.Text), new { @class = "form-control", })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Tasks.Status.Status1)
+        @Html.DropDownListFor(x => x.Tasks.StatusId, new SelectList(Model.Status, "Id", "Status1", Model.Tasks.StatusId), new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(x => x.Tasks.Id)
+
+    <button type="submit" class="btn btn-success">Kaydet</button>
+}
+

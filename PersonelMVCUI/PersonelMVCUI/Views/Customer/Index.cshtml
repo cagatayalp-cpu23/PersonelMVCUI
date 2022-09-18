@@ -1,0 +1,36 @@
+﻿@using PersonelMVCUI.Models.EntityFramework;
+@model List<Customers>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+<a class="btn btn-success" href="/Customer/Yeni">Yeni Departman</a>
+<table class=" table table-bordered" id="tblCustomer">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Sorun Departmanı</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach(var customer in Model)
+        {
+        <tr>
+            <td>@customer.Id</td>
+            <td>@customer.Ad</td>
+            <td>@customer.Soyad</td>
+            <td>@customer.Departman.Ad</td>
+            <td><a class="btn btn-primary" href="/Customer/Guncelle/@customer.Id">Guncelle</a></td>
+            <td><a class="btn btn-warning btnCustomer"data-id=@customer.Id>Sil</a></td>
+        </tr>
+        }
+
+    </tbody>
+</table>
+
+

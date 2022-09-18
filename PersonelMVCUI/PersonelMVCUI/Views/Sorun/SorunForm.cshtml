@@ -1,0 +1,35 @@
+﻿@model PersonelMVCUI.ViewModels.SorunViewModel
+@{
+    ViewBag.Title = "SorunForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="mesaj">
+
+</div>
+@using (Ajax.BeginForm("Kaydet", "Sorun", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mesaj" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.Sorun.TITLE)
+        @Html.TextBoxFor(x => x.Sorun.TITLE, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Sorun.Customers.Ad)
+        @Html.DropDownListFor(x => x.Sorun.CustomerId, new SelectList(Model.Customers, "Id", "Ad", Model.Sorun.CustomerId), new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Sorun.CREATED_AT)
+        @Html.TextBoxFor(x => x.Sorun.CREATED_AT, new { @class = "form-control", type = "date" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Sorun.DEADLINE)
+        @Html.TextBoxFor(x => x.Sorun.DEADLINE, new { @class = "form-control", type = "date" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Sorun.Status.Status1)
+        @Html.DropDownListFor(x => x.Sorun.StatusId, new SelectList(Model.Status, "Id", "Status1", Model.Sorun.StatusId), new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(x => x.Sorun.Id)
+    <button type="submit" class="btn btn-success">Kaydet</button>
+}
+
+

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PersoneldbModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Table1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Ad" Type="nchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Table2">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="DepartmanId" Type="int" />
+    <Property Name="Ad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Soyad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Yas" Type="tinyint" />
+    <Property Name="Maas" Type="smallint" />
+    <Property Name="DogumTarihi" Type="smalldatetime" />
+    <Property Name="Cinsiyet" Type="bit" Nullable="false" />
+    <Property Name="Evlimi" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Table2_Table1">
+    <End Role="Table1" Type="Self.Table1" Multiplicity="1" />
+    <End Role="Table2" Type="Self.Table2" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Table1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Table2">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PersoneldbModel1StoreContainer">
+    <EntitySet Name="Table1" EntityType="Self.Table1" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Table2" EntityType="Self.Table2" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Table2_Table1" Association="Self.FK_Table2_Table1">
+      <End Role="Table1" EntitySet="Table1" />
+      <End Role="Table2" EntitySet="Table2" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
